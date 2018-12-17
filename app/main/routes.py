@@ -51,7 +51,7 @@ def vstup(name,druh):
     form = TmachineForm()
     counter = 0
     session["counter"] = counter
-    form.opts.query = Tmachine.query.filter(or_(Tmachine.id == name, Tmachine.id < name, Tmachine.id > name))
+    form.opts.query = Tmachine.query.filter(Tmachine.id>=1)
     if request.method == 'POST':
         if form.validate_on_submit() and form.submit.data:
             name = form.opts.data.id
@@ -168,7 +168,7 @@ def simuluj():
 @bp.route('/simulacia/<name>/<druh>/<vstup>', methods=['GET','POST'])
 def simulacia(vstup,druh, name):
     form = TmachineForm()
-    form.opts.query = Tmachine.query.filter(or_(Tmachine.id == name, Tmachine.id < name, Tmachine.id > name))
+    form.opts.query = Tmachine.query.filter(Tmachine.id>=1)
     name = session.get("newname")
     druh = session.get("newdruh")
     vstup = session.get("newvstup")
